@@ -2,9 +2,8 @@
 
 This contribution adds offline regression coverage for the existing scorer and a
 small inspector for saved confirm outputs. It preserves the scoring rules and
-published results. An independent fixed-vector run reproduced a large reduction
-in target attack success; the saved examples make scorer behavior reproducible
-without loading a model.
+published results. Saved examples make scorer behavior reproducible without
+loading a model.
 
 The `nem-*` cases originate in NVIDIA's Nemotron dataset, as recorded in the
 [fixture provenance](../tests/fixtures/README.md). These are dataset example IDs,
@@ -42,28 +41,6 @@ the paper's blinded pairwise utility instrument. See the paper's
 [metrics section](https://arxiv.org/html/2609.36570v1#S2.SS3),
 [Appendix A](https://arxiv.org/html/2609.36570v1#A1) and
 [Appendix B](https://arxiv.org/html/2609.36570v1#A2).
-
-## Independent fixed-vector reproduction
-
-A single H200 run on 14 October 2026 used Qwen3-30B-A3B-Thinking-2507,
-the shipped `dim_no_override_both` vectors, alpha 12, layers 8/20/32, batch 4
-and a 4096-token budget. The artifact revision was
-`26bd2db826614a8e60a0dd2eb373988a4c922f34`; the
-[fixture provenance](../tests/fixtures/README.md) records model/data revisions
-and source hashes. No fitting or tuning on these outputs was performed.
-
-| Comparison basis | Shipped reference, attacked → defended | Independent run, attacked → defended |
-| --- | ---: | ---: |
-| All receipt cases | 68/96 → 3/96 | 75/96 → 3/96 |
-| Paper's clean-acting subset rule | 65/90 → 3/90 | 74/92 → 3/92 |
-
-The clean-acting subset is selected within each run; its membership can differ.
-One additional defended completion in the independent run was capped. Counting
-that unresolved case pessimistically gives 4/96. The large target-specific
-reduction remains. This run does not reproduce direction fitting, adaptive
-evaluation, the separate semantic utility measurement or smaller-model transfer.
-The compact fixtures do not independently attest runtime intervention fidelity,
-loaded weights or test-touch chronology and are not a complete rerun environment.
 
 ## Saved examples covered by the tests
 

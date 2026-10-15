@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "provenance": {
-    "description": "Selected saved outputs from an independent fixed-vector Qwen3-30B confirm reproduction on 2026-10-14; post-hoc regression examples, not a new efficacy dataset.",
+    "description": "Selected saved Qwen3-30B confirm outputs dated 2026-10-14 for offline scorer regression tests.",
     "contributor": "Tim O’Brien",
     "artifact_commit": "26bd2db826614a8e60a0dd2eb373988a4c922f34",
     "model_revision": "144afc2f379b542fdd4e85a1fcd5e1f79112d95d",

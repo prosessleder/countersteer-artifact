@@ -1,7 +1,7 @@
 # Confirm scoring fixtures
 
 `confirm_scoring_cases.json` contains 13 selected cases and 52 final outputs
-from Tim O’Brien’s independent fixed-vector confirm run of 14 October 2026.
+contributed by Tim O’Brien from a confirm run dated 14 October 2026.
 AI assistance supported the evidence analysis and preparation. These inputs
 characterize existing scorer behavior; they do not assess source-task quality
 or provide a task-correctness or causal evaluation.
