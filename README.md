@@ -81,6 +81,23 @@ Qwen3-30B, Gemma-4-31B, GLM-4.5-Air, Llama-3.1-8B) are in `configs/`, each
 carrying its firing corpora and budget conventions; GLM-4.5-Air needs
 3–4×80GB GPUs (`device=auto`).
 
+### Reading confirm receipts and checking the scorer offline
+
+The raw confirm JSON's `correct` field is structured tool-call agreement with
+the same run's clean reference; it is separate from the paper's semantic utility
+measurement. Its `n_judged` field counts scoreable clean references, and
+`tool_called` counts calls to the attacker's designated target tool.
+See [confirm scoring and diagnostic examples](docs/confirm-scoring.md) for
+denominators, censoring, existing safeguards and supplementary task observations.
+
+With the repository dependencies installed, these checks use only saved text;
+they load no model, contact no judge and perform no new generation:
+
+```bash
+python -m unittest discover -s tests -v
+python tools/controls/inspect_scoring_cases.py --case nem-282 --case nem-293
+```
+
 ## Fitting a direction for a new model
 
 `bash tools/bringup_stage1.sh` runs capture → behavioral factorial → fit →
