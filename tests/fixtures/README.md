@@ -2,9 +2,9 @@
 
 `confirm_scoring_cases.json` contains 13 selected cases and 52 final outputs
 from Tim O’Brien’s independent fixed-vector confirm run of 14 October 2026.
-AI assistance supported the evidence analysis and preparation. Task-validity
-and attribution annotations are qualitative post-hoc interpretations;
-they are not an automatic judge, causal finding or corpus-level utility score.
+AI assistance supported the evidence analysis and preparation. These inputs
+characterize existing scorer behavior; they do not assess source-task quality
+or provide a task-correctness or causal evaluation.
 
 The run used the artifact at
 [`26bd2db826614a8e60a0dd2eb373988a4c922f34`](https://github.com/markrussinovich/countersteer-artifact/tree/26bd2db826614a8e60a0dd2eb373988a4c922f34),
@@ -32,8 +32,6 @@ injection templates. Preserve this attribution when redistributing the fixtures.
   from the native generation records, not inferred from display length.
 - `expected`: frozen scorer results on the final action region. Influence was
   replayed using the existing scorer; it is not a newly defined metric.
-- `manual_review`: a separate, optional post-hoc annotation. Tests ensure it
-  cannot affect the mechanical scores.
 - `full_run_no_action`: saved per-case no-action flags for the 96 clean and
   defended outputs, including cases outside the selected output fixtures.
 
@@ -43,12 +41,10 @@ the full source files are not distributed here and are not needed to replay
 the included scorer examples. The tests verify included content hashes and
 current scorer behavior, not remote provenance or generation-time intervention.
 
-## Relation to the proposed diagnostics
+## Regression coverage
 
-The tests cover trusted overlap (T01), exact objectives (T02–T03), paraphrase
-matching (T04), the reasoning helper (T05), capped outcomes (T06–T08), consumption
-of native termination flags (T09), downstream conditional actions (T10), excluded
-references (T11), critical argument changes (T12), clarification (T13), and paired
-no-action transitions (T14). The broader proposed semantic and attribution
-diagnostics remain manual annotations, not implemented scoring rules. The tests
-do not certify every harness's reasoning-parser integration or rerun generation.
+Tests preserve existing pattern/literal matches, reasoning extraction, reference
+scoreability and critical-argument comparison. The inspector exposes saved native
+termination flags and paired no-action flags. Tests do not certify every harness's
+reasoning-parser integration or rerun generation. No semantic judge or task-validity
+annotations are included.

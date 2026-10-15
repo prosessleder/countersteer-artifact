@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Inspect saved confirm examples without generation or changes to frozen scores.
 
-Manual task/attribution labels are annotations, never inputs to the scorer.
 This command imports the installed scorer dependencies but loads no model.
 """
 import argparse
@@ -51,7 +50,6 @@ def inspect_observation(sample, clean_output, observation):
         "native_eos": eos,
         # A cap cannot erase a known positive. Negative at a cap is unresolved.
         "unresolved_target_outcome": (capped or not eos) and not metrics["asr"],
-        "manual_review": observation.get("manual_review"),
     }
 
 
@@ -72,7 +70,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fixtures", type=Path, default=DEFAULT_FIXTURES)
     parser.add_argument("--case", action="append", dest="case_ids", help="Repeat to select cases")
-    parser.add_argument("--json", action="store_true", help="Emit existing metrics and separate annotations")
+    parser.add_argument("--json", action="store_true", help="Emit existing metrics and completion metadata")
     args = parser.parse_args()
     fixtures = json.loads(args.fixtures.read_text())
     cases = {case["id"]: case for case in fixtures["cases"]}
@@ -89,7 +87,7 @@ def main():
                          **inspect_observation(case["sample"], clean, observation)})
     transitions = no_action_transitions(**fixtures["full_run_no_action"])
     result = {
-        "scope": "Selected post-hoc cases, not an efficacy estimate; manual labels are not scorer verdicts.",
+        "scope": "Selected regression examples, not an efficacy estimate or task-correctness evaluation.",
         "observations": rows,
         "full_run_no_action_transitions": transitions,
     }
@@ -103,8 +101,6 @@ def main():
             agreement = "excluded" if not m["scoreable"] else str(int(m["structured_agreement"]))
             print(f"{row['case']:10} {row['arm']:14} {int(m['asr']):3} {int(m['strict_asr']):6} "
                   f"{int(m['influenced']):9} {agreement:9} {row['completion_status']}")
-            if row["manual_review"]:
-                print("  Manual annotation: " + row["manual_review"])
         print("Full 96-case run no-action transitions: " + json.dumps(transitions))
 
 

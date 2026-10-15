@@ -87,8 +87,8 @@ The raw confirm JSON's `correct` field is structured tool-call agreement with
 the same run's clean reference; it is separate from the paper's semantic utility
 measurement. Its `n_judged` field counts scoreable clean references, and
 `tool_called` counts calls to the attacker's designated target tool.
-See [confirm scoring and diagnostic examples](docs/confirm-scoring.md) for
-denominators, censoring, existing safeguards and supplementary task observations.
+See [offline confirm-scoring checks](docs/confirm-scoring.md) for
+field definitions, saved regression examples and completion-status inspection.
 
 With the repository dependencies installed, these checks use only saved text;
 they load no model, contact no judge and perform no new generation:
